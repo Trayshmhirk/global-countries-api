@@ -1,0 +1,26 @@
+{
+  "name": "global-countries-api",
+  "version": "1.0.0",
+  "description": "Global Countries API with economic data, demographics, and visual insights - Clean, efficient, and developer-friendly",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test:endpoints": "bash ./scripts/test-endpoints.sh",
+    "test": "bash ./scripts/test-endpoints.sh"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.2",
+    "mysql2": "^3.2.0",
+    "pureimage": "^0.3.12",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
