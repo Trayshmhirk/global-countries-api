@@ -132,7 +132,62 @@ The script hits the following endpoints in order and performs basic checks:
 - `DATABASE_HOST`, `DATABASE_PORT`, `DATABASE_USER`, `DATABASE_PASSWORD`, `DATABASE_NAME` — MySQL connection
 - `PORT` — server listen port
 
+## Deployment on Railway
+
+You can easily deploy this API on Railway with the following steps:
+
+1. **Create a Railway Account**
+
+   - Go to [Railway.app](https://railway.app/)
+   - Sign up or login with GitHub
+
+2. **Create a New Project**
+
+   - Click "New Project"
+   - Choose "Deploy from GitHub repo"
+   - Select your forked repository
+
+3. **Add MySQL Database**
+
+   - Click "New" and select "Database" → "MySQL"
+   - Railway will provision a MySQL instance
+   - Go to the MySQL service and click "Variables"
+   - You'll see the following connection details:
+     - `MYSQLHOST` (hostname)
+     - `MYSQLPORT` (port)
+     - `MYSQLUSER` (username)
+     - `MYSQLPASSWORD` (password)
+     - `MYSQLDATABASE` (database name)
+
+4. **Configure Environment Variables**
+
+   - Go to your deployed service settings
+   - Add/update these variables using the MySQL connection details:
+     - `DATABASE_HOST` = value of `MYSQLHOST`
+     - `DATABASE_PORT` = value of `MYSQLPORT`
+     - `DATABASE_USER` = value of `MYSQLUSER`
+     - `DATABASE_PASSWORD` = value of `MYSQLPASSWORD`
+     - `DATABASE_NAME` = value of `MYSQLDATABASE`
+     - `PORT=3000`
+   - This maps Railway's MySQL variables to the format our app expects
+
+5. **Deploy**
+
+   - Railway will automatically deploy your application
+   - The deployment URL will be shown in the project dashboard
+   - Test the deployment by calling `/status` endpoint
+
+6. **Initialize Database**
+   - Once deployed, call `POST /countries/refresh` to populate the database
+   - Verify data by checking `/countries` endpoint
+
+Your API will be available at `https://<project-name>.up.railway.app`
+
 ## Troubleshooting
 
 - If the server cannot connect to MySQL, check your `.env` and ensure MySQL is running and reachable.
 - If external APIs fail, the refresh endpoint will return 503 and the DB will not be modified.
+- For Railway deployments:
+  - Check Railway logs if endpoints return errors
+  - Ensure all environment variables are properly set
+  - Verify MySQL connection by checking `/status` endpoint
